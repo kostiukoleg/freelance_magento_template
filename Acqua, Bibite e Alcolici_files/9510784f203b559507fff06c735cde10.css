@@ -3196,7 +3196,7 @@ div.menu{position: relative;top:-7px;margin:0;margin-top: -18px;padding:4px 0;te
 .products_grid.loading .product-image {-webkit-transition:all 400ms ease-in-out;-moz-transition:all 400ms ease-in-out;-o-transition:all 400ms ease-in-out;transition:all 400ms ease-in-out;-webkit--moz--o-;}
 .products_grid .product-grid,
 .product-slide .product-grid{position:relative;float:left;margin-top:20px;border:2px solid #F5F5F5; /* background: #fafafa;*/ -webkit-transition:all 400ms ease-in-out;-moz-transition:all 400ms ease-in-out;-o-transition:all 400ms ease-in-out;transition:all 400ms ease-in-out;-webkit--moz--o-;}
-.products_grid .product-grid:hover,.product-slide .product-grid:hover{border: none;box-shadow: 0 0 15px rgba(0,0,0,0.5);}
+.products_grid .product-grid:hover,.product-slide .product-grid:hover{border: 2px solid #CDCDCD;box-shadow: 0 0 15px rgba(0,0,0,0.5);}
 .products_grid .product-grid.no-attributes,.product-slide .product-grid.no-attributes{ border: none !important;background: none !important;}
 .product-grid .product-image{display:block;}
 .with-sidebar .rows-count4 .product-grid .product-image{ }
@@ -3226,7 +3226,7 @@ div.menu{position: relative;top:-7px;margin:0;margin-top: -18px;padding:4px 0;te
 .rows-count4 .product-grid .product-information .btn-cont{float: none !important;}
 .with-sidebar .rows-count4.products_grid .product-grid{width: 160px;}
 .with-sidebar .rows-count4 .product_grid .product-name{text-align: center;}
-.rows-count6.products_grid .product-grid{width: 170px;height: 370px;}
+.rows-count6.products_grid .product-grid{width: 166px;/* height: 370px; */}
 .rows-count6.products_grid .product-grid .product-information{text-align: center;}
 .rows-count6.products_grid .product-grid .product-information .btn-cont, .rows-count6.products_grid .product-grid .product-information .price-box{float: none;}
 .img-hided{position:absolute; left:0;opacity:0;}
@@ -4712,7 +4712,7 @@ display: block;
 
 .product-grid:hover .btn-cont{
 	display:block;
-        background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/add_goods.png") no-repeat scroll center center;
+    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/add_goods.png") no-repeat scroll center center;
 }
 .product-grid .btn-cont .btn-cart {
     font-size: 80px;
@@ -4730,17 +4730,18 @@ display: block;
     z-index: 4;
 }
 .adt .qty {
-    background-color: #535353;
+    //background-color: #535353;
+    background: url('http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/count_goods.png') no-repeat;
     border-radius: 3px;
     color: #fff;
     font-size: 16px;
-    height: 30px;
-    line-height: 30px;
+    height: 35px;
+    line-height: 35px;
     position: absolute;
     right: 10px;
     text-align: center;
-    top: 10px;
-    width: 31px;
+    top: 20px;
+    width: 35px;
     z-index: 3;
 }
 
@@ -4748,24 +4749,45 @@ display: block;
 
 .adt .del {
 
-    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/sub-prod.png") no-repeat scroll left top;
+    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/count_dn.png") no-repeat scroll left bottom;
     border: medium none;
     font-size: 50px;
-    height: 30px;
+    height: 11px;
     line-height: 24px;
     position: absolute;
     text-align: center;
-    top: 10px;
-    width: 31px;  
+    top: 60px;
+    width: 41px;
+    right: 7px;
 
 }
 
 .adt .del:hover {
 
-    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/sub-prod.png") no-repeat scroll left bottom;
+    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/count_dn.png") no-repeat scroll left top;
 
 }
 
+.adt .add {
+
+    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/count_up.png") no-repeat scroll left top;
+    border: medium none;
+    font-size: 50px;
+    height: 11px;
+    line-height: 24px;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+    width: 41px;
+    right: 7px;
+
+}
+
+.adt .add:hover {
+
+    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/count_up.png") no-repeat scroll left bottom;
+
+}
 
 .prodid{
 	display:none;
