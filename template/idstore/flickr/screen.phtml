@@ -1,0 +1,24 @@
+<?php 
+$screen = $this->getScreen();
+ ?>
+
+<?php if (array_key_exists('error', $screen)): ?>
+    <div class="error"><?php echo $screen['error'] ?></div>
+<?php else: ?>
+
+<?php 
+$photos = $screen['photos'];
+$photos_url = $screen['photos_url']; 
+?>
+<div class="footer_thumbs">
+    <ul class='img-list'>
+		<?php $i=0; foreach($photos->photos->photo as $photo): $photo = (array) $photo; $i++; ?>
+		<li class='flickr-photo <?php if($i%3==0) echo 'footer_thumbs_last-child' ?>'>
+			<a href='<?php echo $photos_url->user->url; ?><?php echo $photo['id']; ?>' target='_blank'>
+				<img src='<?php $url = "http://farm" . $photo['farm'] . ".static.flickr.com/" . $photo['server'] . "/" . $photo['id'] . "_" . $photo['secret'] . '_s' . ".jpg"; echo $url; ?>' alt='<?php echo $photo['title']; ?>' width="60" height="60" />
+			</a>
+		</li>
+		<?php endforeach; ?>
+    </ul>
+</div>
+<?php endif ?>

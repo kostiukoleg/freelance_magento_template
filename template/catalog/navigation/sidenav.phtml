@@ -1,0 +1,64 @@
+<div class="block left-categories">
+    <?php $categories = $this->getAllCategories(); ?>
+    <?php $currentCat = $this->getCurrentCategory(); ?>
+    <?php $currentCatId = $currentCat->getId(); ?>
+    <div class="block-title cat"><h2><?php echo $currentCat->getName()?></h2></div>
+    <div class="block-content left-categories-container">
+    <?php /* foreach ($categories as $category): ?>
+            <?php if ($category->getId() != $currentCatId): ?>
+            <div class="leftnav-item"><a href="<?php echo $category->getURL() ?>"><?php echo $category->getName() ?></a></div>
+            <?php else: ?>
+            <div class="leftnav-item current"><span><?php echo $category->getName() ?></span></div>
+            <?php endif ?>
+    <?php endforeach */ ?>
+    <?php echo $this->printCategoriesTree(); ?>
+    </div>xxxxx
+    <script type="text/javascript">
+        jQuery(function(){
+
+            jQuery('.categories-tree .level1').each(function() {
+
+                var elem = jQuery(this);
+
+                if (elem.hasClass('active')) {
+                    elem.addClass('current-parent opened');
+                }
+                elem.has('.active').addClass('current-parent opened');
+            });
+            
+            
+            var nav_section = jQuery('.categories-tree .level1 > ul');
+            var nav_toggle_element = jQuery('.categories-tree .level1 .btn-show ');
+            var nav_speed = 150;
+            
+            
+            nav_toggle_element.click(function(){
+                if(jQuery(this).parent().hasClass('opened')){
+                    hideActiveSection();
+                }else{
+                    showNext(jQuery(this));
+                }
+            });
+            
+            /*
+            
+            if(jQuery('.categories-group.opened').length > 0) {
+                //jQuery('.categories-group.has-subnav').addClass('opened');
+            }else{
+                // If doesnt exitst opened point
+                jQuery('.categories-group.has-subnav:first').addClass('opened').find('ul').show();
+            }
+            */
+            
+            function showNext(element) {
+                hideActiveSection();
+                element.parent().addClass('opened');
+                element.next().slideDown(nav_speed);
+            }
+            
+            function hideActiveSection(){
+                jQuery('.level1.opened').removeClass('opened').find('> ul').slideUp(nav_speed);
+            }
+    }); 
+    </script>
+</div>

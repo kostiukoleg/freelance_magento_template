@@ -1,0 +1,24 @@
+<?php
+$themeOptions = $this->helper('idstore');
+$menuHelper = $this->helper('etheme_menu');
+$baseUrl = $this->getBaseUrl();
+$currentUrl = Mage::helper('core/url')->getCurrentUrl();
+$this->setIsMobile();
+?>
+<div class="side-menu-wrap">
+	<div id="close-side-nav"></div>
+	<ul id="mobile-nav" class="menutype1 et-mobile-menu">
+		<?php if ($home_link = $menuHelper->getHomeLink()) : ?>
+        <li class="level0 level-top nav-0 <?php if ($baseUrl == $currentUrl): ?>active<?php endif?>">
+            <a href="<?php echo $baseUrl ?>"><?php echo $home_link ?></a>
+        </li>
+        <?php endif ?>
+		<?php echo $this->renderMobileMenu(); ?>
+		<?php echo $this->getChildHtml('mobile_links'); ?>
+		<?php if ($addLink = $menuHelper->additionalLink()): ?>
+        <li class="level0 additional level-top">
+            <a href="<?php echo $menuHelper->additionalLinkUrl() ?>"><?php echo $addLink ?></a>
+        </li>
+    	<?php endif ?>
+	</ul>
+</div>

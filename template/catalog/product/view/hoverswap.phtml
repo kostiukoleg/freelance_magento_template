@@ -1,0 +1,9 @@
+<?php if ($img = $this->getHoverImg()): 
+$width = $this->getWidth();
+$height = $this->getHeight();
+$product = $this->getProduct();
+$image = $this->helper('catalog/image')->init($product, 'small_image', $img->getFile())->keepFrame(true)->resize($width, $height);
+$alt = $this->stripTags($this->getImageLabel($this->getProduct(), 'small_image'), null, true);
+?>
+<img class="product_image img-hided" src="<?php echo $image ?>" width="<?php echo $width ?>" height="<?php echo $height ?>" alt="<?php echo $alt ?>" />
+<?php endif; ?>

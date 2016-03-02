@@ -1,0 +1,12 @@
+<?php 
+$themeOptions = $this->helper('idstore'); 
+?>
+<?php if ($themeOptions->ajaxIsEnabled()): ?>
+<div class="category-overlay">
+    <div id="addedoverlay" style="display:none"> </div>
+    <div id="added" style="display:none"></div>
+</div>
+<?php endif ?>
+<?php if($themeOptions->backToTop() != 'disable'): ?>
+<div id="back-to-top" class="btn-style-<?php echo $themeOptions->backToTop(); ?>"><a href="#top" id="top-link" ><span>Back to top</span></a></div>
+<?php endif; ?>

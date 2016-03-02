@@ -1,0 +1,56 @@
+<?php $themeOptions = $this->helper('idstore') ?>
+
+<div class="container_footer_bg">
+  <div class="container">
+        <div class="row footer_container">
+            <?php echo $this->getChildHtml('footer_columns'); ?> 
+            
+
+            <div class="span3 footer_block tweets-block">
+              <?php echo $this->getChildHtml('twitter') ?>
+            </div>	                
+            
+            <div class="span3 footer_block tweets-block">
+                <?php echo $this->getChildHtml('flickr') ?>
+            </div>
+            
+          <hr class="footer-hr">
+          <div class="footer-menu-wrap">
+            <?php echo $this->getChildHtml('footer_columns2'); ?> 
+          </div>
+          
+      </div>
+  </div> 
+</div>
+<div class="footer-black-bg">
+  <div class="container no-bg">
+    <div class="row after_footer">
+      <div class="span6" id="after_footer_menu">
+      	<?php if ($themeOptions->showFooterLinks()): ?>
+              <?php echo $this->getChildHtml('footer_links'); ?>
+          <?php else: ?>
+              <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cms_footer_links')->toHtml(); ?>
+          <?php endif ?>
+          
+          <div class="span6 footer-copyright">
+          
+              <span class="copyright"><?php echo $this->getCopyright() ?></span>
+          </div>
+          
+      </div>
+      
+      <div class="span6" id="after_footer_payments">
+          <?php echo $this->getChildHtml('payments') ?> 
+          <?php echo $this->getChildHtml('store_switcher') ?>
+      </div>  
+    </div>
+     <div id="social_icon">
+    <ul>
+      <li><a href="#"><img src="http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/facebook_icon.png"></a></li>
+      <li><a href="#"><img src="http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/twitter_icon.png"></a></li>
+      <li><a href="#"><img src="http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/google_icon.png"></a></li>
+      <li><a href="#"><img src="http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/instagram_icon.png"></a></li>
+    </ul>
+  </div>
+  </div>
+</div>

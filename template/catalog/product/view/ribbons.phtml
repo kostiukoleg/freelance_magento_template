@@ -1,0 +1,12 @@
+<?php
+$themeOptions = Mage::helper('idstore');
+$new = ($this->hasNewRibbon() && $themeOptions->useNewLabel());
+$sale = ($this->hasSaleRibbon() && $themeOptions->useSaleLabel());
+
+if ($new):
+?> 
+<span class="label-icon new-label">New!</span>
+<?php endif ?>
+<?php if ($sale): ?>
+<span class="label-icon sale-label <?php if ($new) echo 'once' ?>">Sale!</span>
+<?php endif ?>

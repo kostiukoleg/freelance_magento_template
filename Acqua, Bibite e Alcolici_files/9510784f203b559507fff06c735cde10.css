@@ -1684,10 +1684,11 @@ Author URI: http://themeforest.net/user/8theme
 Description: ThemeForest Premium Theme
 Version: 1.3
 
-*/
+
+
 :root {
 
-	--A-1-1:		#5AA249;
+	--A-1-1:		#DA6B2C;
 	--A-1-2:		#42842B;
 	
 	--B-1:			#FFF;
@@ -1696,7 +1697,7 @@ Version: 1.3
 	--S-1-1:		#FF9200;
 	--S-1-2:		#FF7F00;
 }
-
+*/
 /* Reset ================================================================================= */
 * { margin:0; padding:0; }
 html, body, div, span, applet, object, iframe,
@@ -1742,11 +1743,11 @@ table {
 	border-collapse: collapse;
 }
 
-body          { margin: 0 auto; background-color: #ffffff; color: #808080; font-size: 12px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 20px; }
+body          { margin: 0 auto; background-color: #ffffff; color: #7a7a7a; font-size: 12px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 20px; }
 
 img           { border:0; vertical-align:top; }
 
-a             { color:#444; text-decoration:none; }
+a             { color:#575757; text-decoration:none; }
 a:hover       { text-decoration:none; }
 :focus        { outline:0; }
 
@@ -1820,8 +1821,20 @@ ul,ol         { list-style:none; }
 .no-padding   { padding:0 !important; }
 .no-bg        { background:none !important; }
 /* ======================================================================================= */
-
-
+div.clearfix>h3+a{
+	background: #FEF7D5 none repeat scroll 0 0 !important;
+	border: 1px solid #DA6B2C !important;
+    color: #DA6B2C !important;
+}
+div.span12.col-main.without-sidebar>div.subcategories>h2{
+	color: #ff7d33 !important;
+	background: none !important;
+	font-size: 30px !important;
+	font-weight: bold !important;
+    border-top: 2px solid #be1e36;
+    border-bottom: 2px solid #be1e36;
+    box-shadow: 0 5px 10px -7px #333,0 -5px 10px -7px #333;
+}
 /* Layout ================================================================================ */
 .boxed .wrapper {
 margin: 0 auto;
@@ -1897,7 +1910,8 @@ input.qty:focus{border:1px solid #bbb !important;}
 /* Buttons
 /* -------------------------------------------------- */
 
-#submit,.button{display:inline-block;padding:0 12px 0;border:none;background:#CCC;color:#fff;text-align:center;text-transform:uppercase;white-space:nowrap;font-size:12px;line-height: 28px;cursor:pointer;-webkit-transition-timing-function:ease;-webkit-transition-duration:.2s;-webkit-transition-property:background, border-color;}
+#submit,.button{display:inline-block;padding:0 12px 0;border:none;background:#be1e36;color:#fff;text-align:center;text-transform:uppercase;white-space:nowrap;font-size:12px;line-height: 28px;cursor:pointer;-webkit-transition-timing-function:ease;-webkit-transition-duration:.2s;-webkit-transition-property:background, border-color;}
+div.box-2>button.button:hover{background-color: #DC6E2F;}
 .button span{color:#fff;line-height:30px;}
 .button.active{-webkit-transition-timing-function:ease;-webkit-transition-duration:.2s;-webkit-transition-property:background-color, border-color;}
 .button.active:hover{background-color:#e73434;}
@@ -1916,7 +1930,7 @@ input.qty:focus{border:1px solid #bbb !important;}
 .button.big.arrow-right,.checkout-types .btn-checkout{padding-right: 55px;background-image: url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/arrow_big_right.png);background-position: 91% center;background-repeat: no-repeat;}
 .checkout-types .btn-checkout{display: block;padding: 10px 18px;padding-right: 55px;}
 input,select{outline:none !important;border:1px solid #efefef;-webkit-border-radius: 0px !important;border-radius: 0px !important;color: #666669;font-weight: 300;font-size: 12px;-webkit-appearance:none;}
-select{background:#fff url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/select_arrow.png) no-repeat 95% center;height: 40px;}
+select{background:#fff url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/select_arrow.png) no-repeat 95% center;}
 select:hover{background:#fff url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/select_arrow_hover.png) no-repeat 95% center;}
 select, input[type="file"]{line-height: 20px;}
 input[type="radio"]{-webkit-appearance:radio;}
@@ -2145,7 +2159,7 @@ p.required { color:#fc5b5b; text-align:right; font-size:11px; }
 .breadcrumbs ul { float:left; }
 .breadcrumbs li { display: inline-block; }
 .breadcrumbs span {padding:0 6px 0 8px;}
-.breadcrumbs strong{font-weight:300;}
+.breadcrumbs strong{font-weight:300;color: #be1e36;}
 .breadcrumbs a{text-decoration:none;font-weight:300;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-ms-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out;}
 .back-to{float:right;padding:0 0 2px 12px;background:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/return.png) no-repeat 0 5px;font-size:12px;}
 .back-to span{position:relative;top:1px;display:none;color:gray;font-size:18px;line-height:3px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-ms-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out;}
@@ -2155,7 +2169,15 @@ p.required { color:#fc5b5b; text-align:right; font-size:11px; }
 /* Page Heading */
 .page-title { width:100%; border-bottom:1px solid #efefef; margin:0 0 25px; }
 .page-title h1,
-.page-title h2 { margin: 0 0px 10px 0px;padding-bottom: 20px;line-height: 30px; color: #666669 !important;text-transform: uppercase;font-weight: 300;font-size: 28px; }
+.page-title h2 { 
+    padding: 24px 10px;
+	color: #ff7d33 !important;
+    background: none !important;
+    font-size: 30px !important;
+    font-weight: bold !important;
+    border-top: 2px solid #be1e36;
+    border-bottom: 2px solid #be1e36;
+    box-shadow: 0 5px 10px -7px #333,0 -5px 10px -7px #333;/* margin: 0 0px 10px 0px;padding-bottom: 20px;line-height: 30px; color: #666669 !important;text-transform: uppercase;font-weight: 300;font-size: 28px;  */}
 .page-title .separator { margin:0 3px; }
 .page-title .link-rss { float:right; margin:7px 0 0; }
 .title-buttons { text-align:right; }
@@ -2331,11 +2353,11 @@ tr.summary-details-excluded { font-style:italic; }
 
 .search_text{color:gray;font-size:12px;}
 //.search_form{ padding: 20px 0px 0px 0px;}
-#search_mini_form .field{float:left;/* border-top:1px solid #efefef!important;border-right:none!important;border-bottom:1px solid #efefef!important;border-left:1px solid #efefef!important; */color:#acacac;font:italic 14px Verdana, sans-serif;width: 150px;margin-top: 20px;}
-#search_mini_form .field:focus{font-size:11px;}
-#search_mini_form .button{padding: 0;width: 70px;height: 70px;/* border: 1px solid #F5F5F5; */border-left: none; background: #dc6e2f;background-image: url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/search_icon.png");background-position: 20px 20px;background-repeat: no-repeat;text-indent: -9999px;-webkit-transition-timing-function: ease;-webkit-transition-duration: .2s;-webkit-transition-property: background; float: left;}
-#search_mini_form .button:hover{background:#fc5b5b;background-image:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/search_button_bg_hover.png);background-position:6px 6px;background-repeat:no-repeat;}
-
+#search_mini_form .field{background-color: #fff;float:left;margin-left: 15px;/* border-top:1px solid #efefef!important;border-right:none!important;border-bottom:1px solid #efefef!important;border-left:1px solid #efefef!important; */color:#acacac;font:italic 14px Verdana, sans-serif;width: 150px;margin-top: 20px;}
+#search_mini_form .field:focus{font-size:14px;}
+#search_mini_form .button{padding: 0;width: 70px;height: 70px;/* border: 1px solid #F5F5F5; */border-left: none;background-image: url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/search_icon.png");background-position: 0 0;background-repeat: no-repeat;text-indent: -9999px;-webkit-transition-timing-function: ease;-webkit-transition-duration: .2s;-webkit-transition-property: background; float: left;}
+#search_mini_form .button:hover{background:#BE1E36;background-image:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/search_icon_hover.png);background-position:20px 20px;background-repeat:no-repeat;}
+#search:focus{background-color: #fff;}
 
 .header .form-search label { float:left; overflow:hidden; width:24px; height:21px; text-align:left; text-indent:-999em; }
 .header .form-search input.input-text { float:left; margin-right:4px; width:209px; border-color:#5c7989; }
@@ -2358,7 +2380,7 @@ tr.summary-details-excluded { font-style:italic; }
 .header-container .top-container { clear:both; padding:5px 10px 0 12px; text-align:right; }
 .header-container .top-container a { color:#ebbc58; font-size:11px; }
 .header-top .container{position: relative;}
-.variant1 .logo-container{width: 290px;/* margin-top: 15px; */}
+.variant1 .logo-container{width: 290px;margin-top: 15px;}
 .variant1 .shopping_cart_wrap{float: right;}
 .variant1 .store-switcher{position: absolute;left:20px;top:-30px;}
 /* Header Variant2  */
@@ -2486,10 +2508,10 @@ tr.summary-details-excluded { font-style:italic; }
 .top-cart .cart-popup {
 position: absolute;
 top: 75px;
-left: auto;
+right: -67px;
 z-index: 10001;
 padding: 20px;
-width: 360px;
+width: 375px;
 //border-top: 3px solid #f5f5f5;
 border: 2px solid #f5f5f5;
 //border-bottom: 2px solid #f5f5f5;
@@ -2497,6 +2519,8 @@ border: 2px solid #f5f5f5;
 background: #fff;
 text-align: left;
 border-radius: 10px;
+box-shadow: 5px 0 10px -4px #333,-5px 0 10px -4px #333;
+overflow-y: auto;
 }
 
 #.top-cart:hover .cart-popup {display: block;}
@@ -2509,34 +2533,51 @@ transition: opacity 100ms 300ms ease,transform 500ms ease;
 -o-transform:translateY(-200%);
 transform:translateY(-200%);
 }
-
+.item-options>label{
+	float:left;
+}
+#top-cart div.item-info.item_price{
+	width: auto;
+	float: right;
+    position: absolute;
+    right: 15px;
+    top: 45px;
+}
 .top-cart.pending .cart-popup {display: block;}
 #top-cart .cart-popup .recently-added {margin: 0;padding-bottom: 5px;font-weight: 300;font-size: 12px;}
 #top-cart .cart-popup a > img {width: 75px;opacity: 1;-webkit-transition: all .2s ease-in-out;-moz-transition: all .2s ease-in-out;-ms-transition: all .2s ease-in-out;-o-transition: all .2s ease-in-out;transition: all .2s ease-in-out;}
-.cart-popup .product-details button{display: block;float: right;padding: 0;width: 17px;height: 17px;border-color:transparent;background: url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/delete-btn-sprite.png) no-repeat;background-color: #fff;background-position: top center; text-indent: -999em;font-weight: 300;}
-.cart-popup .product-details button:hover{background-position: 0 -17px;height: 16px;position: relative;top: 2px;left: -1px}
+.cart-popup .product-details button{color: #a6a6a6;display: block;float: right;padding: 0;width: 17px;height: 17px;border-color:transparent;background: url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/remove_cart.png) no-repeat;background-color: #fff;background-position: center 4px;text-indent: -6em;font-weight: 300; margin-right: 10px;}
+.cart-popup .product-details button::first-letter{text-transform: uppercase;}
+//.cart-popup .product-details button:hover{background-position: 0 -17px;height: 16px;position: relative;top: 2px;left: -1px}
 .cart-popup .product-image{float: left;}
-.cart-popup .item{float: left;padding: 20px 0;width: 100%;}
-.cart-popup .product-name a{color: #444;text-transform: uppercase;font-weight: 300;font-size: 14px;}
+.cart-popup .item{position: relative;float: left;padding: 20px 0;width: 100%;background: url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/item_border_dn.png) no-repeat center bottom;background-size: 355px 10px;}
+.cart-popup .product-name a{color: #7f7f7f;text-transform: uppercase;font-size: 14px;}
+.cart-popup .product-name a:hover{
+	text-shadow: none;cursor: text;
+}
 .cart-popup .product-details strong{font-weight: 300!important;}
 .cart-popup .product-image{margin:0 10px 0 0;}
 .cart-popup .btn-edit{margin-right:5px;float: right !important;}
-.cart-popup .product-details .price{margin-left: 2px;color:#fc5b5b;font-weight: 300;font-size: 16px;}
-#top-cart button.btn-checkout {float: right;width: 100%;background-image: url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/qty_arrow_right_disabled-white.png);background-position: 70% center;background-repeat: no-repeat;padding: 5px 28px; background-color: var(--S-1-1);}
-#top-cart button.btn-checkout:hover {background-color: var(--S-1-2);
-}
+.cart-popup .product-details .price{margin-left: 2px;color:#a32338;font-weight: 300;font-size: 16px;}
+#top-cart button.btn-checkout {float: right;width: 111%;background-image: url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/qty_arrow_right_disabled-white.png);background-position: 70% center;background-repeat: no-repeat;padding: 0 28px; /* background-color: var(--S-1-1) */; margin: 0 -20px -20px -20px;}
+/* #top-cart button.btn-checkout:hover {background-color: var(--S-1-2);
+} */
 #top-cart button.btn-view {float: left;width: 40%;}
-.cart-popup .products-small{float: left;width: 100%;border-top:1px solid #efefef;border-bottom:1px solid #efefef;}
-.cart-popup .summary{float: left;margin:10px 0 20px;width: 100%;color: #444;text-align: right !important;text-transform: uppercase;font-weight: 300;font-size: 18px;text-align: center;}
-.cart-popup .summary .price{color: #444;font-weight: 300;font-size: 18px !important;}
-#top-cart .item .item-info{float: left;width: 240px;}
-#top-cart .product-name{float: left;width: 230px;}
+.cart-popup .products-small{float: left;width: 100%;/* border-top:1px solid #efefef;border-bottom:1px solid #efefef; */}
+.cart-popup .summary{float: left;margin:5px 0;width: 100%;color: #444;text-align: right !important;text-transform: uppercase;font-weight: 300;font-size: 16px;text-align: center;}
+.cart-popup .summary .price{color: #444;font-weight: 300;font-size: 16px !important;}
+#top-cart .item .item-info{float: left;width: 240px;color: #c4c4c4;width: 150px;}
+#top-cart .product-name{float: left;width: 150px;}
 
+.bord_right{
+	overflow: hidden;
+	background: url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/border_cart.png") no-repeat 150px center;
+}
 
 .cart-popup .item .item-options {
-    background-color: rgba(90, 162, 73, 0.1);
+    //background-color: rgba(90, 162, 73, 0.1);
     border-radius: 3px;
-    margin-top: 5px;
+    margin-top: -5px;
     padding: 5px;
     text-align: center;
 }
@@ -2545,18 +2586,21 @@ transform:translateY(-200%);
     color: #535353;
     display: inline-block;
     font-size: 12px;
-    height: 24px;
-    line-height: 24px;
+    //height: 24px;
+    //line-height: 24px;
     margin-right: 2%;
-    width: 43%;
+    //width: 43%;
+    //height: 40px;
+    padding-top: 10px;
+    cursor: text;
 }
 
 .cart-popup .item .item-options select {
     border: 1px solid #D1D0D0;
     display: inline-block;
-    height: 24px;
-    line-height: 24px;
-    width: 55%;
+    //height: 24px;
+    //line-height: 24px;
+    width: 50%;
 }
 /********** < Navigation */
 .header-variant1, .header-variant2, .header-variant3, .header-variant4, .header-variant5{ position: relative; padding: 8px 0 0;}
@@ -2573,9 +2617,13 @@ transform:translateY(-200%);
 .header-variant1 .links li, .header-variant2 .links li, .header-variant3 .links li, .header-variant4 .links li, .header-variant5 .links li{margin-right: 0;}
 .header-variant1 .links li:after, .header-variant2 .links li:after, .header-variant3 .links li:after, .header-variant4 .links li:after, .header-variant5 .links li:after{content:"/";margin:0 2px 0 6px;}
 .header-variant1 .links li:last-child:after, .header-variant2 .links li:last-child:after, .header-variant3 .links li:last-child:after, .header-variant4 .links li:last-child:after, .header-variant5 .links li:last-child:after{content:"";}
-.links li:last-child:after{content:"";margin-right: -5px;}
+//.links li.last:after{content:" ";margin:0 2px 0 6px;}
 .links li:after{content:"/";margin:0 2px 0 6px;}
- .et-menu-title {
+div.row.footer_container>hr{
+	display: none;
+}
+
+.et-menu-title {
 display: none;
 margin: 20px 0;
 padding: 0 15px 0 15px;
@@ -2594,7 +2642,7 @@ cursor: pointer;
  .et-menu-title{display: none;margin: 20px 0;padding: 0 15px 0 15px; color: #FFF;text-align: left;text-transform: uppercase;font-weight:300;font-size: 20px;line-height: 50px;cursor: pointer;}
  .et-menu-title i {margin-right: 10px; font-size: 22px;}
  .et-mobile-menu li{position:relative;display:block;}
- .et-mobile-menu li .open-child{display:block;float:right;width:46px;height:45px;border-top:1px solid #EFEFEF;background-color:#f5f5f5;background-image:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/menu-plus.png);background-position:center center;background-repeat:no-repeat;font-size:0;cursor:pointer;}
+ .et-mobile-menu li .open-child{display:block;float:right;width:46px;height:45px;/* border-top:1px solid #EFEFEF;background-color:#f5f5f5; */background-image:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/category_close.png);background-position:center center;background-repeat:no-repeat;font-size:0;cursor:pointer;}
  .et-mobile-menu li .open-child:hover{background-color:#F5F5F5;-webkit-transition:background-color .3s ease;-moz-transition:background-color .3s ease;-ms-transition:background-color .3s ease;-o-transition:background-color .3s ease;transition:background-color .3s ease;}
  .et-mobile-menu li.over > .open-child{background-image:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/menu-minus.png);}
  .et-mobile-menu li > a{display:block;padding:0 10px;border-top:1px solid #efefef;background:#FFF;color:#444;text-transform: uppercase; font-weight:300;font-size:16px;line-height:45px;}
@@ -2604,14 +2652,18 @@ cursor: pointer;
 /* Mobile menu side
 -------------------------------------------------------------- */
 .side-menu-wrap{ 
+padding: 20px;
+border: 2px solid #e6e6e6;
+border-radius: 15px;
+box-shadow: 5px 0 10px -4px #333,0 5px 10px -4px #333;
 position: fixed;
 left: 0;
 z-index:10001;
 margin: 0; 
 width: 415px !important;
-height: 100%;
-top: 54px;
-overflow: scroll;
+height: 80%;
+top: 75px;
+overflow-y: auto;
 background: white;
 -webkit-transform: translateY(-200%);
 -moz-transform: translateY(-200%);
@@ -2630,6 +2682,50 @@ transition: opacity 100ms 300ms ease,transform 500ms ease;
 -webkit-transition-delay: ease,0s;
 }
 
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 5px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #ff7d33;
+}
+
+@-moz-document url-prefix(http://),url-prefix(https://) {
+scrollbar {
+   -moz-appearance: none !important;
+   background: rgb(0,255,0) !important;
+}
+thumb,scrollbarbutton {
+   -moz-appearance: none !important;
+   background-color: rgb(0,0,255) !important;
+}
+
+thumb:hover,scrollbarbutton:hover {
+   -moz-appearance: none !important;
+   background-color: rgb(255,0,0) !important;
+}
+
+scrollbarbutton {
+   display: none !important;
+}
+
+scrollbar[orient="vertical"] {
+  min-width: 15px !important;
+}
+}
+
 .side-help{ 
 position: fixed;
 
@@ -2639,13 +2735,15 @@ width: 250px !important;
 
 #height: 100%;
 #overflow: scroll;
-
-background-color:var(--A-1-2);
+box-shadow: 5px 0 10px -4px #333,-5px 0 10px -4px #333;
+background-color: #fff;
+border: 2px solid #f5f5f5;
+border-radius: 10px;
 padding: 4px 0px;
 padding: 4px 0px 8px 12px;
 font-size: 14px;
-left: 48%;
-margin-top: 53px;
+left: 50%;
+margin-top: 75px;
 -webkit-transform: translateY(-200%);
 -moz-transform: translateY(-200%);
 -ms-transform: translateY(-200%);
@@ -2661,6 +2759,10 @@ backface-visibility: hidden;;
 -o-transition: opacity 100ms 300ms ease,-o-transform 500ms ease;
 transition: opacity 100ms 300ms ease,transform 500ms ease;
 -webkit-transition-delay: ease,0s;
+}
+.side-help>ul>li{
+	border-bottom: 2px dotted #efefef;
+	padding: 10px;
 }
 .boxed.mobile-menutype-side  .side-menu-wrap{
 	-webkit-transform: translate(-200%);
@@ -2771,10 +2873,10 @@ transform: translate(245px);
 /* level 0
 -------------------------------------------------------------- */
 .mobile-menutype-default .et-mobile-menu li{display:block;position:relative;}
-.mobile-menutype-default .et-mobile-menu li .open-child{float:right;display:block;text-indent:-99999px;width:40px;height:40px;border-top:1px solid #EFEFEF;background:#f5f5f5;background-image:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/menu-plus.png);background-position:center center;background-repeat:no-repeat;cursor:pointer;}
+.mobile-menutype-default .et-mobile-menu li .open-child{float:right;display:block;text-indent:-99999px;width:40px;height:40px;/* border-top:1px solid #EFEFEF;background:#f5f5f5; */background-image:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/category_close.png);background-position:center center;background-repeat:no-repeat;cursor:pointer;}
 .mobile-menutype-default .et-mobile-menu li .open-child:hover{background-color:#F5F5F5;-webkit-transition:background-color .3s ease;-moz-transition:background-color .3s ease;-ms-transition:background-color .3s ease;-o-transition:background-color .3s ease;transition:background-color .3s ease;}
-.mobile-menutype-default .et-mobile-menu li.over > .open-child{background-image:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/menu-minus.png);}
-.mobile-menutype-default .et-mobile-menu li > a{text-transform: uppercase;display:block;line-height:40px;font-size:16px;background:var(--A-1-1);color:var(--B-1);border-top:1px solid #efefef;padding:0 10px; font-weight:300;}
+.mobile-menutype-default .et-mobile-menu li.over > .open-child{background-image:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/category_open.png);}
+.mobile-menutype-default .et-mobile-menu li > a{text-transform: uppercase;display:block;line-height:40px;font-size:16px;background:var(--A-1-1);color:var(--B-1);border-top:2px dotted #efefef;padding:0 10px; font-weight:300;}
 .mobile-menutype-default .et-mobile-menu li > a:hover{background-color:var(--A-1-2);text-decoration:none;color:var(--B-1);-webkit-transition:background-color .3s ease;-moz-transition:background-color .3s ease;-ms-transition:background-color .3s ease;-o-transition:background-color .3s ease;transition:background-color .3s ease;}
 .mobile-menutype-default .et-mobile-menu > li:last-child{border-bottom:1px solid #efefef;}
 /* level 1
@@ -2786,7 +2888,7 @@ transform: translate(245px);
 -------------------------------------------------------------- */
 .mobile-menutype-default .et-mobile-menu > li ul{display:none;}
 .mobile-menutype-default .et-mobile-menu > li > ul li{display:block;position:relative;}
-.mobile-menutype-default .et-mobile-menu > li > ul > li a{padding-left:20px;display:block;font-size:14px;background-color:var(--B-1);color:var(--A-1-2)}
+.mobile-menutype-default .et-mobile-menu > li > ul > li a{padding-left:20px;display:block;font-size:14px;background-color:var(--B-1);color:#575757;}
 .mobile-menutype-default .et-mobile-menu > li > ul > li li a{padding-left:40px;}
 .mobile-menutype-default .et-mobile-menu > li > ul > li li li a{padding-left:60px;}
 /* -------------------------------------------------- */
@@ -3195,7 +3297,7 @@ div.menu{position: relative;top:-7px;margin:0;margin-top: -18px;padding:4px 0;te
 .slide.product-slide:last-child{margin-right: 0 !important;}
 .products_grid.loading .product-image {-webkit-transition:all 400ms ease-in-out;-moz-transition:all 400ms ease-in-out;-o-transition:all 400ms ease-in-out;transition:all 400ms ease-in-out;-webkit--moz--o-;}
 .products_grid .product-grid,
-.product-slide .product-grid{position:relative;float:left;margin-top:20px;border:2px solid #F5F5F5; /* background: #fafafa;*/ -webkit-transition:all 400ms ease-in-out;-moz-transition:all 400ms ease-in-out;-o-transition:all 400ms ease-in-out;transition:all 400ms ease-in-out;-webkit--moz--o-;}
+.product-slide .product-grid{position:relative;float:left;margin-top:20px;border:2px solid #F5F5F5; /* background: #fafafa */; -webkit-transition:all 400ms ease-in-out;-moz-transition:all 400ms ease-in-out;-o-transition:all 400ms ease-in-out;transition:all 400ms ease-in-out;-webkit--moz--o-;}
 .products_grid .product-grid:hover,.product-slide .product-grid:hover{border: 2px solid #CDCDCD;box-shadow: 0 0 15px rgba(0,0,0,0.5);}
 .products_grid .product-grid.no-attributes,.product-slide .product-grid.no-attributes{ border: none !important;background: none !important;}
 .product-grid .product-image{display:block;}
@@ -3226,7 +3328,7 @@ div.menu{position: relative;top:-7px;margin:0;margin-top: -18px;padding:4px 0;te
 .rows-count4 .product-grid .product-information .btn-cont{float: none !important;}
 .with-sidebar .rows-count4.products_grid .product-grid{width: 160px;}
 .with-sidebar .rows-count4 .product_grid .product-name{text-align: center;}
-.rows-count6.products_grid .product-grid{width: 166px;/* height: 370px; */}
+.rows-count6.products_grid .product-grid{width: 166px;height: 370px;}
 .rows-count6.products_grid .product-grid .product-information{text-align: center;}
 .rows-count6.products_grid .product-grid .product-information .btn-cont, .rows-count6.products_grid .product-grid .product-information .price-box{float: none;}
 .img-hided{position:absolute; left:0;opacity:0;}
@@ -4419,9 +4521,9 @@ font-size: 14px; }
 .footer_thumbs li:hover{opacity:0.6;}
 .flickr-photo img {width: 60px !important;}
 .footer_thumbs_last-child{margin-right:0!important;}
-.footer-black-bg{background: #111;}
+.footer-black-bg{margin-top:130px;background:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/footer_bg.png);height: 135px;}
 #after_footer_menu {width: 475px;}
-.container_footer_bg{margin-top: 40px;width:100%;background:#222; }
+.container_footer_bg{margin-top: 40px;width:100%;background:#222; display:none;}
 .after_footer .links {display:inline-block;float:left;padding-top:15px;margin-bottom: 10px;}
 .after_footer .links :last-child{border:none;}
 .after_footer .links span{float:left;}
@@ -4431,7 +4533,7 @@ font-size: 14px; }
 .footer_copyright_payments :last-child{margin-right:0;}
 .footer_copyright_payments li{display: inline-block;margin-right: 4px;width: 55px;}
 .copyright{display: block;margin-left: -20px;width:475px;color:gray;font:12px Arial, sans-serif;}
-.after_footer{margin-left:0;padding-bottom: 11px;}
+.after_footer{margin-left:0;/* padding-bottom: 11px; */}
 #after_footer_menu{margin-left: 0;}
 #after_footer_payments{float: right;width: 415px;}
 .footer_block1 img{max-width: 95px;}
@@ -4450,6 +4552,16 @@ font-size: 14px; }
      -ms-transition: all 0.2s ease-in-out;
       -o-transition: all 0.2s ease-in-out;
          transition: all 0.2s ease-in-out;
+}
+#social_icon>ul{
+	width: 300px;
+	margin: 0 auto;
+	padding-bottom: 20px;
+    overflow: hidden;
+}
+#social_icon>ul>li{
+	float:left;
+	margin-right: 20px;
 }
 
 #back-to-top.btn-style-modern a:before {
@@ -4697,7 +4809,7 @@ display: block;
 
 .product-grid .btn-cont{
 	display:none;
-    background-color: rgba(90, 162, 73, 0.1);
+    background-color: rgba(195, 195, 195, 0.2);
     float: right;
     height: 100%;
     left: 0;
@@ -4710,9 +4822,12 @@ display: block;
 
 /*Cabooza.com  CB-5-CSS*/
 
-.product-grid:hover .btn-cont{
+.product-grid:hover .btn-cont:not(.hover){
 	display:block;
     background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/add_goods.png") no-repeat scroll center center;
+}
+.product-grid .btn-cont:not(.hover){
+    background-color: none;
 }
 .product-grid .btn-cont .btn-cart {
     font-size: 80px;
@@ -4790,10 +4905,10 @@ display: block;
 }
 
 .prodid{
-	display:none;
+	display: none;
 }
 .product-grid .btn-cont.hover {
-    display: block ;
+    display: block;
 }
 
 #crtqty {
@@ -4858,7 +4973,7 @@ display: block;
 .show-cart 
 {
     color: #ff7d33;
-    float: right;
+    //float: right;
     height: 50px;
     //padding: 15px 10px;
 	background: var(--A-1-1) none repeat scroll 0% 0%;
@@ -4867,6 +4982,10 @@ display: block;
 
 .show-cart:hover {
     background-color: var(--A-1-2);
+}
+
+a.show-cart:not(.opened)+div#top-cart{
+	display: none;
 }
 
 .show-cart .cart-btn {
@@ -4890,16 +5009,17 @@ display: block;
 }
 
 .show-cart.opened .cart-btn {
-    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/arrow_up.png") no-repeat scroll right 15px;
+    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/arrow_up.png") no-repeat scroll right 25px;
 }
 
 .show-cart .cart-quantity {
-    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/cart.png") no-repeat scroll 10px 20px;
+    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/cart.png") no-repeat scroll 0 0;
     float: left;
     height: 70px;
     position: relative;
     width: 70px;
-    background-color: #da6b2c;
+    //background-color: #da6b2c;
+    margin-left: 20px;
 }
 
 
@@ -4957,6 +5077,11 @@ display: block;
     text-align: right;
 }
 
+#mobile-nav>li>a>span{
+	font-weight: 600;
+	color: #be1e36;
+}
+
 /* vecchio Help
 .showHelp {
     background-color: gray;
@@ -4991,7 +5116,7 @@ display: block;
     position: relative;
     line-height: 70px;
 	//background: #5AA249;
-    margin-left: 50px;
+    //margin-left: 50px;
 }
 
 .show-help {
@@ -5016,7 +5141,8 @@ display: block;
 }
 
 .show-help.opened {
-    background-color: #42842B;
+    //background-color: #42842B;
+    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/arrow_up.png") no-repeat scroll right 30px;
 }
 
 
@@ -5057,13 +5183,17 @@ display: block;
     position: relative;
 }
 
-
-.show-menu.opened
+a:hover{
+	cursor: pointer;
+}
+.show-menu.opened span
 {
-    //background-color: #42842B;
+    background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/arrow_up.png") no-repeat scroll right 25px;
 }
 
-
+.show-menu:hover span{
+	color: #FF7D33;
+}
 
 .header .shopping_cart_wrap {
     width: 312px;
@@ -5071,7 +5201,7 @@ display: block;
 }
 .header-container .container {
     padding: 0 5%;
-    width: 90%;
+    width: 1200px;
 	background-color: var(--A-1-1);
 }
 ul.level0{
@@ -5094,16 +5224,18 @@ ul.level0{
     margin-top: 12px;
 }
 .addcontent {
-    background: rgba(0, 0, 0, 0) url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/arrow-up.jpg") repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0) url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/item_plus.png") repeat scroll 0 0;
     cursor: pointer;
-    height: 13px;
-    width: 17px;
+    height: 20px;
+    width: 20px;
+    background-size: 20px 20px;
 }
 .removecontent{
-    background: rgba(0, 0, 0, 0) url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/arrow-down.jpg") repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0) url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/item_minus.png") repeat scroll 0 0;
 	cursor: pointer;
-    height: 13px;
-    width: 17px;
+    height: 20px;
+    width: 20px;
+    background-size: 20px 20px;
 }
 .qtycontent {
     font-size: 16px;
@@ -5144,7 +5276,8 @@ ul.level0{
 
 .box-1 {
     width:105% !important;
-    //height:200px !important;
+    min-height:10vh !important;
+    max-height:78vh !important;
     overflow-y:auto;padding: 0px;
     background:url(http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/css/gradient.png) repeat-x fixed top left;
 }
@@ -5156,7 +5289,7 @@ ul.level0{
 }
 
 .header-fix{
-	max-width: 1920px; 
+	//max-width: 1920px; 
 	position:fixed;
 	width:100%;
 	z-index: 100;
@@ -5165,10 +5298,67 @@ ul.level0{
 .topix {
 	padding-top: 8%;  
 }
-
+@media (min-width: 980px) and (max-width: 1024px) {
+	[class*="span"]{
+		margin-left: 0;
+	}
+	.span3 {
+   		width: 200px;
+	}
+	a.show-menu>span{
+		width: 55px;
+	}
+	.show-cart .cart-price{
+		display: none;
+	}
+	a.show-cart div.cart-btn {
+    	border: none;
+	}
+	.help {
+		margin-left: 0;
+	}
+	.show-cart .cart-quantity {
+		margin-left: 10px;
+	}
+	#search_mini_form .field {
+		margin-left: 0;
+	}
+	div.row.header{
+	    width: 1024px;
+    	margin-left: -40px;
+	}
+	
+	div.span5.logo-container>a>img{
+		margin-left: 55px;
+	}
+	div.product-grid.span2{
+		margin-left: 15px;
+	}
+	.show-cart .cart-btn{
+		padding-right: 20px;
+	}
+	.top-cart .cart-popup{
+		right: 15px;
+	}
+}
 @media (min-width: 768px) and (max-width: 979px) {
+  div.row.header>a.show-cart{position: absolute;right: 10px;}
+  div.span5.logo-container>a>img{margin: 10px 0 0 40px;height: 25px;}
+  form#search_mini_form>div.form-search{position: absolute;right: 320px;top: 45px;}
+  a.show-cart>div.cart-price{margin-top: 20px;}
+  a.show-cart>div.cart-btn{display: none;}
+  //a.show-cart>div.cart-quantity{margin-top: 20px;}
+  .show-menu{padding: 0;margin-top: 10px;}
+  .show-help {padding-left: 20px;}
+  .help {margin-top: 18px;background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/kostiukoleg/help_icon.png") no-repeat scroll 0px 27px;}
+  div.row.header {margin:0;}
+  .header-variant1, .header-variant2, .header-variant3, .header-variant4, .header-variant5 {padding: 0;}
+  .header-container .container{padding: 0;width: 100%;}
   .hidden-desktop {
     display: inherit !important;
+  }
+  .top-cart .cart-popup {
+  	right: 0;
   }
   .visible-desktop {
     display: none !important ;
@@ -5866,7 +6056,13 @@ ul.level0{
 .navbar .brand{padding-right:600px;}
 .navbar-inner{margin-left:20px;}
 .shopping_cart_wrap,.price_filter_span_right{float:right;}
-.header-variant1 #search_mini_form .form-search .field:focus, .header-variant2 #search_mini_form .form-search .field:focus, .header-variant5 #search_mini_form .form-search .field:focus{width:210px;}
+.header-variant1 #search_mini_form .form-search .field, .header-variant2 #search_mini_form .form-search .field:focus, .header-variant5 #search_mini_form .form-search .field:focus{
+	padding-left: 6px;
+    font-size: 12px;
+    width: 200px;
+    border: 1px solid #e6e6e6!important;
+    background-color: #FFF;
+    cursor: text;}
 .et-mobile-menu{margin:0 auto;padding:0;width:724px;}
 .banner_top_bottom{width:660px;}
 .banner h2{padding-top:10px;}

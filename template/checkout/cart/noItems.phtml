@@ -1,0 +1,9 @@
+<div class="empty-cart-block">
+	<i class="icon-shopping-cart"></i>
+	<h1><?php echo $this->__('Shopping Cart is Empty') ?></h1>
+	
+    <?php echo $this->getChildHtml('checkout_cart_empty_widget'); ?>
+    <p><?php echo $this->__('You have no items in your shopping cart.') ?></p>
+    <p><?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getContinueShoppingUrl()) ?></p>
+	
+</div>

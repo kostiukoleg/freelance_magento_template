@@ -1,0 +1,45 @@
+<script type="text/javascript"> 
+<?php 
+$theme = $this->helper('idstore');
+if ($theme->ajaxIsEnabled()):
+    $request = $this->getRequest();
+    $module = $request->getModuleName();
+    $controller = $request->getControllerName();
+    $action = $request->getActionName();
+?>
+    eightTheme.setOnCart(<?php echo ($module == 'checkout' && $controller == 'cart' && $action == 'index') ? 'true' : 'false' ?>);
+    eightTheme.setAjaxVar('continueShoppingMsg', "<?php echo $this->__('Continue shopping') ?>");
+    eightTheme.setAjaxVar('successMsg', "<?php echo $this->__('was successfully added to your shopping cart.') ?>");
+    eightTheme.setAjaxVar('checkoutMsg', "<?php echo $this->__('Checkout') ?>");
+    eightTheme.setAjaxVar('cartUrl', "<?php echo $this->getUrl('checkout/cart')?>");
+<?php else: ?>
+    eightTheme.ajaxRemove = setLocation;
+    eightTheme.ajaxAddProduct = setLocation;
+    eightTheme.ajaxShowOptions = setLocation;
+<?php endif; ?>
+    var active_color_selector = '<?php echo $this->getSelectors('active_color'); ?> ';
+    var active_bg_selector = '<?php echo $this->getSelectors('active_bg'); ?> ';
+    var active_border_selector = '<?php echo $this->getSelectors('active_border'); ?>';
+    var active_color_default = '#<?php echo $theme->getActiveColor(); ?>';
+    var bg_default = '#<?php echo $theme->getMainColor(); ?>';
+    var pattern_default = '<?php echo $theme->getBgPatternUrl() ?>'; 
+</script>
+<?php if ($theme->isResponsiveEnabled()): ?>
+<style type="text/css">
+@import url("<?php echo $this->getSkinUrl('css/large-responsive.css') ?>") (min-width: <?php echo ($theme->getLargeResolutionWidth()) ?  $theme->getLargeResolutionWidth() : '1600'; ?>px);
+</style>
+<?php endif ?>
+
+<!-- google fonts -->
+<?php if ($theme->useGfontHeadings()) : ?>
+<style>
+@import url(http://fonts.googleapis.com/css?family=<?php echo str_replace(' ','+', $theme->gfontHeadings())?>);
+h1, h2, h3, h4, h5, h6 {font-family: '<?php echo $theme->gfontHeadings() ?>';}
+</style>
+<?php endif ?>
+<?php if ($theme->useGfontMenu()) : ?>
+<style>@import url(http://fonts.googleapis.com/css?family=<?php echo str_replace(' ','+', $theme->gfontMenu());?>);
+#nav li.level0 > a {font-family: '<?php echo $theme->gfontMenu() ?>';}
+</style>
+<?php endif ?>
+<?php echo $theme->getSettingsCss() ?>

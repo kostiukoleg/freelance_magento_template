@@ -1,0 +1,73 @@
+<?php
+
+if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
+<?php 
+
+$imgW = 270; $imgH = 370;
+$name = $this->getName(); 
+$_helper = $this->helper('catalog/output');
+$title = $this->getTitle();
+
+if($name == '') {
+	$name = 'products';
+}
+
+?>
+<div id="<?php echo $name ?>" class="carousel-wrap product-slider">
+    <h4 class="slider-title"><?php echo ($title) ? $title : $name ?></h4>
+    	<div class="clear"></div>
+        <div class="carousel">
+            <div class="slider">
+                <?php $i=0; foreach ($_products->getItems() as $_product): $i++; ?>
+                    <div class="slide span3 product-slide <?php if(($i == 4 && $_products->getSize() < 5) || ($i == $_products->getSize()) ) echo 'last'?>"> 
+                    	<div class="product-grid">
+	                        <?php echo $this->getLayout()->createBlock('idstore/product_ribbons')->setTemplate('catalog/product/view/ribbons.phtml')->setData('product', $_product)->toHtml(); ?>      
+	                        
+	                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image">
+		                        <div class="img-wrapper"><?php echo $this->getLayout()->createBlock('idstore/product_hoverswap')->setTemplate('catalog/product/view/hoverswap.phtml')->setData('product', $_product)->setData('width', $imgW)->setData('height', $imgH)->toHtml(); ?></div>
+		                        <div class="img-wrapper hideableHover"><img class="product_image" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgW,$imgH) ?>" width="<?php echo $imgW ?>" height="<?php echo $imgH ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+</div>
+	                        </a>
+	                        
+	                        <div class="product-information">
+	                        	<?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>   
+	                        	
+	                            <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><?php echo $this->htmlEscape($_product->getName()) ?></a></h3>
+	                            
+	                            <?php echo $this->getPriceHtml($_product, true) ?>                    
+	                            
+	                            <div class="btn-cont">
+		                            <?php if($_product->isSaleable()): ?>
+		                                <?php if ( !($_product->getTypeInstance(true)->hasOptions($_product) || $_product->isGrouped()) ): ?>
+                                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="eightTheme.ajaxAddProduct('<?php echo $this->getAddToCartUrl($_product) ?>','<?php echo $_product->getId()?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                                        <?php else: ?>
+                                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="eightTheme.ajaxShowOptions('<?php echo $_product->getId()?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                                        <a href='<?php echo $this->getUrl('e_ajax/index/options',array('product_id'=>$_product->getId()));?>' class='fancybox' id='fancybox<?php echo $_product->getId()?>' style="display: none;" ><?php echo $this->__('Add to Cart') ?></a>
+                                        <?php endif ?>
+		                            <?php else: ?>
+		                                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+		                            <?php endif; ?>
+	                            </div>
+	                            
+	                            <div style="clear: both;"></div>
+	                        </div>
+	                        
+	                        <div id="productimgover<?php echo $_product->getId()?>" style="display: none;"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(64); ?>" width="64" height="64" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></div>
+	                        <div id='productname<?php echo $_product->getId()?>' style='display:none'><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></div>           
+                        </div>         
+                    </div>
+                <?php endforeach; ?>
+            </div>             
+        </div>
+        <?php if($_products->getSize() > 1): ?>
+            <div class="arrow prev <?php echo $name ?>">&nbsp;</div>
+            <div class="arrow next <?php echo $name ?>">&nbsp;</div>  
+        <?php endif; ?>
+    </div>     
+    <div style="clear: both;"></div>
+    <?php if($_products->getSize() > 1): ?>
+        <script type="text/javascript">
+            eightTheme.initIosSlider('<?php echo $name?>', 3);          
+        </script>    
+    <?php endif; ?>   
+<?php endif; ?>

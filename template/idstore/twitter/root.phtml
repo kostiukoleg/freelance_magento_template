@@ -1,0 +1,15 @@
+<?php
+$themeOptions = $this->helper('idstore');
+
+if ($themeOptions->useTwitter()): ?>
+    <span class="footer_title">Recent Tweets</span>
+    <?php echo $this->getChildHtml('twitter_feed'); ?>
+<?php else :
+    $title = Mage::getModel('cms/block')
+    ->setStoreId(Mage::app()->getStore()->getId())
+    ->load('cms_twitter')
+    ->getTitle();
+?>
+    <span class="footer_title"><?php echo $title ?></span>
+    <?php echo $this->getChildHtml('cms_twitter'); ?>
+<?php endif ?>

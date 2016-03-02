@@ -1,0 +1,221 @@
+<?php
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php 
+$_helper = $this->helper('catalog/output'); 
+$themeOptions = $this->helper('idstore');
+$_product = $this->getProduct(); 
+$_layout = $themeOptions->getProductLayout();
+$productHelper = $this->helper('idstore/product');
+$productHelper->init($_layout);
+$descSpanClass = $productHelper->getValue('desc_span');
+
+if ($themeOptions->isBrandimageEnabled()) {
+    $imageAttrName = $themeOptions->getBrandimageAttrName();
+    $imageAttrSrc = $productHelper->getAttributeImage($imageAttrName, $_product->getAttributeText($imageAttrName));
+}
+?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="product-view layout-<?php echo $themeOptions->getProductLayout() ?>">
+    <div class="row product-essential">
+    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <div class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+        </div>
+        
+        <div class="span5 product_image product-img-box">
+            <?php echo $this->getChildHtml('media') ?>
+        </div>
+        
+        <div class="span<?php echo $descSpanClass ?> product-shop">
+            <div class="product-name">
+                <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                
+            </div>
+            
+            <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
+
+            <?php 
+	            if($_product->getTypeId() != 'grouped') {
+	            	echo $this->getChildHtml('product_type_data');
+                    echo '<span class="product-code">'.$this->__('Product code:').' <strong>'.$_product->getId().'</strong></span>';
+	            }
+            ?>
+            
+            <?php echo $this->getChildHtml('alert_urls') ?>
+            <?php echo $this->getTierPriceHtml() ?>
+            <?php echo $this->getChildHtml('extrahint') ?>
+            
+            <div class="clear"></div>
+
+            
+            <div class="short-description">
+                <?php if ($_product->getShortDescription()):?>
+                    <div class="std"><?php echo $_helper->productAttribute($_product, ($_product->getShortDescription()), 'short_description') //nl2br ?></div> 
+                <?php endif;?>
+                <?php if ($themeOptions->isSizeguideEnabled()): ?>
+                <div class="size-guide-wrap">
+                    <a id="sizeguide-lightbox" href="<?php echo $themeOptions->getSizeguideImageSrc() ?>"><?php echo $this->__('Sizing Guide') ?></a>
+                </div>
+                <script>
+                    jQuery('#sizeguide-lightbox').prettyPhoto({
+                        animation_speed: 'normal', /* fast/slow/normal */
+                        slideshow: 5000, /* false OR interval time in ms */
+                        autoplay_slideshow: false, /* true/false */
+                        opacity: 0.80, /* Value between 0 and 1 */
+                        show_title: true, /* true/false */
+                        allow_resize: true, /* Resize the photos bigger than viewport. true/false */
+                        default_width: 500,
+                        default_height: 344,
+                        counter_separator_label: '/', /* The separator for the gallery counter 1 "of" 2 */
+                        theme: 'pp_default', /* light_rounded / dark_rounded / light_square / dark_square / facebook */
+                        horizontal_padding: 20, /* The padding on each side of the picture */
+                        hideflash: false, /* Hides all the flash object on a page, set to TRUE if flash appears over prettyPhoto */
+                        wmode: 'opaque', /* Set the flash wmode attribute */
+                        autoplay: true, /* Automatically start videos: True/False */
+                        modal: false, /* If set to true, only the close button will close the window */
+                        deeplinking: true, /* Allow prettyPhoto to update the url to enable deeplinking. */
+                        overlay_gallery: true, /* If set to true, a gallery will overlay the fullscreen image on mouse over */
+                        keyboard_shortcuts: true, /* Set to false if you open forms inside prettyPhoto */
+                        changepicturecallback: function(){}, /* Called everytime an item is shown/changed */
+                        social_tools: false,
+                        gallery_markup: ''
+                    });
+                </script>
+                <?php endif ?>  
+            </div>
+            
+            
+            <?php 
+	            // If grouped product show table above add to cart button
+	            if($_product->getTypeId() == 'grouped') {
+	            	echo $this->getChildHtml('product_type_data');
+	            }
+            ?>
+
+            
+            <?php if (!$this->hasOptions()):?>
+                <div class="add-to-box">
+                    <?php if($_product->isSaleable()): ?>
+                        <?php echo $this->getChildHtml('addtocart') ?>
+                    <?php endif; ?>
+                    			      
+                    <?php echo $this->getChildHtml('addto') ?>
+                </div>
+                <?php echo $this->getChildHtml('extra_buttons') ?>
+            <?php elseif (!$_product->isSaleable()): ?>
+                <div class="add-to-box">
+                    <?php echo $this->getChildHtml('addto') ?>
+                </div>
+            <?php endif; ?>
+
+            <?php echo $this->getChildHtml('other');?>
+
+            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+            <?php endif;?>
+            <?php if ($themeOptions->useProductTabs() && $themeOptions->getTabsLocation() == 'infocol'): ?>
+                <?php echo $this->getChildHtml('info_tabs') ?>
+            <?php endif ?>
+            <?php echo $this->getChildHtml('productpage_main_area') ?>
+        </div>
+        <?php if($productHelper->useRightSidebar()): ?>
+	        <div class="span2 product-sidebar">
+                <?php if ($themeOptions->isBrandimageEnabled() && ($imageAttrSrc != null)): ?>
+                <div class="brand-img">
+                    <img src="<?php echo $imageAttrSrc ?>" alt="<?php echo $_product->getAttributeText($imageAttrName); ?>" />
+                </div>
+                <?php endif ?>
+                <?php if($themeOptions->hasProductSidebar()): ?>
+	               <?php echo $this->getChildHtml('product_sidebar') ?>
+                <?php endif; ?>
+	        </div>
+        <?php endif; ?>
+        
+        <div class="clearer"></div>
+        <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+            <div class="span12 options-container2"><?php echo $this->getChildChildHtml('container2', '', true, true) ?></div>
+        <?php endif;?>
+    </form>
+    <?php if ($productpage_afterproduct = $this->getChildHtml('productpage_afterproduct')): ?> 
+        <div class="span12"><?php echo $productpage_afterproduct ?></div> 
+    <?php endif ?>
+    <?php if($themeOptions->ajaxIsEnabled()): ?>
+    <script type="text/javascript">
+    //<![CDATA[
+        eightTheme.ajaxAddProductPage('product_addtocart_form');
+    //]]>
+    </script>
+    <?php else: ?>
+    <script type="text/javascript">
+    //<![CDATA[
+        var productAddToCartForm = new VarienForm('product_addtocart_form');
+        productAddToCartForm.submit = function(button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                   form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            }
+        }.bind(productAddToCartForm);
+
+        productAddToCartForm.submitLight = function(button, url){
+            if(this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                // Remove custom datetime validators
+                for (var methodName in Validation.methods) {
+                    if (methodName.match(/^validate-datetime-.*/i)) {
+                        delete Validation.methods[methodName];
+                    }
+                }
+
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(productAddToCartForm);
+    //]]>
+    </script>
+    <?php endif ?>
+    </div>
+
+    <div class="row product-collateral">
+        <?php if ($themeOptions->useProductTabs() && $themeOptions->getTabsLocation() == 'after'): ?>
+        <?php echo $this->getChildHtml('info_tabs') ?>
+        <?php endif ?>
+        <?php echo $this->getChildHtml('product_additional_data') ?>
+    </div>
+        <?php echo $this->getChildHtml('upsell_products') ?>
+        <?php echo $this->getChildHtml('related_products') ?>
+</div>

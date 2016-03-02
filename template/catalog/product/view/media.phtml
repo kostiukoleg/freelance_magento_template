@@ -1,0 +1,183 @@
+<?php
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+    $themeOptions = $this->helper('idstore');
+    $_layout = $themeOptions->getProductLayout();
+    $productHelper = $this->helper('idstore/product');
+    $productHelper->init($_layout);
+    $thumbs_count = count($this->getGalleryImages());
+    $_i_thumbs = 0;
+    $use_carousel = true; // you have no choice
+    $_zoomType = $themeOptions->getZoomType(); 
+    $_zoomIsLightbox = ($_zoomType == 'lightbox');
+?>
+<?php 
+    
+    $_mainWidth = $productHelper->getValue('main_width');
+    $_mainHeight = $productHelper->getValue('main_height');
+    $_smWidth = $productHelper->getValue('small_width');
+    $_smHeight = $productHelper->getValue('small_height');
+    $_carWidth = $productHelper->getValue('car_width');
+    $_zoomWidth = $productHelper->getValue('zoom_width');
+    $_zoomLeft = $productHelper->getValue('zoom_left');
+    $minThumbs = $productHelper->getValue('min_thums');
+    $_mainRatio = $_mainWidth / $_mainHeight;
+    /*
+    $_mainWidth = $productHelper->getMainWidth();
+    $_mainHeight = $productHelper->getMainHeight();
+    $_smWidth = $productHelper->getSmallWidth();
+    $_smHeight = $productHelper->getSmallHeight();
+    $_carWidth = $productHelper->getCarWidth();
+    $_zoomWidth = $productHelper->getZoomWidth();
+    $_zoomLeft = $productHelper->getZoomLeft();
+    $minThumbs = $productHelper->getMinThumbs();
+    */
+    //$use_carousel = true;
+?>
+<style>
+    .product-view .product-img-box .more-views { width:<?php echo $_carWidth ?>px; }
+    #zoom-window { left: <?php echo $_zoomLeft ?>px; width: <?php echo $_zoomWidth ?>px; }
+</style>
+<div class="zoom-container layout_<?php echo $_layout ?>" style="position: relative;">
+    
+    <div class="main-image" >   
+        <a id="zoom" class="<?php if ($_zoomIsLightbox): ?> lightbox<?php endif;?> main-thumbnail" href="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>">
+            <?php
+                $_img = '<img class="zoom-image" src="'.$this->helper('catalog/image')->init($_product, 'image')->keepFrame(false)->resize($_mainWidth, $_mainHeight).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+                echo $_helper->productAttribute($_product, $_img, 'image');
+            ?>
+        </a> 
+        <?php if($_zoomType == 'hover'):  ?>
+        <div class="lightbox-btn">
+            <a id="zoom-lightbox" class="lightbox" href="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>">
+                <?php echo $this->__('Enlarge') ?>
+            </a>         
+        </div>
+        <?php endif;?>
+    </div> 
+  
+    <div class="more-views "<?php if ($use_carousel && $thumbs_count > $minThumbs): ?>style="height:80px;"<?php endif; ?>>
+        <div class="zoom-gallery slider">
+        <?php if($thumbs_count == 0): /* ?>
+            <div class="slide last">
+                <a class="zoom-thumbnail<?php if(!$use_zoom): ?> lightbox<?php endif;?>" href="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>" data-easyzoom-source="<?php echo $this->helper('catalog/image')->init($_product, 'image')->keepFrame(false)->resize($_mainWidth) ?>">
+                    <?php
+                        $_img = '<img class="zoom-image" src="'.$this->helper('catalog/image')->init($_product, 'thumbnail')->keepFrame(false)->resize($_smWidth,$_smHeight).'" width="'.$_smWidth.'" height="'.$_smHeight.'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+                        echo $_helper->productAttribute($_product, $_img, 'image');
+                    ?>
+                </a>   
+            </div>   
+        <?php */ endif; ?>
+        <?php if ($thumbs_count > 0): ?>  
+            <?php foreach ($this->getGalleryImages() as $_image): $_i_thumbs++; ?>
+            <?php 
+            $img = new Varien_Image($_image->getPath());
+            $width = $img->getOriginalWidth();
+            $height = $img->getOriginalHeight();
+            $ratio = $width / $height;
+            if ($width > $height) {
+                $width = $_mainWidth;
+                $height = round($width / $ratio);
+            }
+            else {
+                $height = $_mainHeight;
+                $width = round($height * $ratio);
+            }
+
+            ?>
+                <div class="slide <?php if ($thumbs_count == $_i_thumbs) echo 'last'; ?>">
+                    <a class="zoom-thumbnail<?php if ($_zoomIsLightbox): ?> lightbox<?php endif;?>"  
+                        href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" 
+                        data-source-width="<?php echo $width?>" data-source-height="<?php echo $height?>" 
+                        data-easyzoom-source="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->keepFrame(false)->resize($_mainWidth, $_mainHeight); ?>" 
+                        title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
+                            <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->keepFrame(false)->resize($_smWidth,$_smHeight); ?>" width="<?php echo $_smWidth ?>" height="<?php echo $_smHeight ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        </div>              
+    </div>
+    <?php if($use_carousel && $thumbs_count > $minThumbs): ?>
+        <div class="more-views-arrow prev">&nbsp;</div>
+        <div class="more-views-arrow next">&nbsp;</div>                 
+    <?php endif;?>  
+</div>    
+    
+    <script type="text/javascript">    
+        
+    <?php if($_zoomType == 'hover'): ?>
+        /* Zoom */
+        // This is all that is needed for basic image zoom support 
+        // accross the different modes.
+            jQuery('a#zoom').swinxyzoom({mode:'dock', size: '100%', dock: { position: 'right' } }); // dock window slippy lens
+            jQuery('.more-views .slide:first-child').addClass('active');
+            
+            // The following provides a very quick example of how you may
+            // wish to handle gallery situations.
+            
+            jQuery('.more-views a').click(function(e) {
+                e.preventDefault();
+                //sxy-zoom-container
+
+                var $this = jQuery(this),
+                largeImage  = $this.attr('href');
+                smallImage  = $this.data('easyzoom-source');
+                if (!$this.parent().hasClass('active')) {
+                    jQuery('a#zoom').swinxyzoom('load', smallImage,  largeImage);
+                    jQuery('#zoom-lightbox').attr('href', largeImage);
+                    jQuery('.more-views .slide.active').removeClass('active');
+                    $this.parent().toggleClass('active');
+                }
+                srcWidth = $this.data('source-width');
+                srcHeight = $this.data('source-height');
+                // set up centering margins for wide images
+                marginTop = (600 - srcHeight)/2; // 600 is default height for image
+                marginBottom = marginTop + 20; // 20 margin collapse from thumbnails carousel
+                //jQuery('.sxy-zoom-container').width(srcWidth).height(srcHeight).css('marginTop', marginTop+'px').css('marginBottom', marginBottom+'px');
+                // @TODO: handle responsive heights and widths
+            }); 
+         
+    <?php endif;?>
+    
+    <?php if($use_carousel && $thumbs_count > $minThumbs): ?>    
+        jQuery(document).ready(function(){
+            jQuery('.more-views').iosSlider({
+                desktopClickDrag: true,
+                snapToChildren: true,
+                infiniteSlider: false,
+                navNextSelector: '.more-views-arrow.next',
+                navPrevSelector: '.more-views-arrow.prev',
+                lastSlideOffset: 3,
+                onFirstSlideComplete: function(){
+                    jQuery('.more-views-arrow.prev').addClass('disabled');
+                },
+                onLastSlideComplete: function(){
+                    jQuery('.more-views-arrow.next').addClass('disabled');
+                },
+                onSlideChange: function(){
+                    jQuery('.more-views-arrow.prev').removeClass('disabled');
+                    jQuery('.more-views-arrow.next').removeClass('disabled');
+                }
+            }); 
+        }); 
+                        
+    <?php endif;?>
+    
+     // Start lightbox
+    jQuery('a.lightbox').lightBox({
+        imageLoading    : '<?php echo $this->getSkinUrl('images/lightbox-ico-loading.gif') ?>',
+        imageBtnClose   : '<?php echo $this->getSkinUrl('images/lightbox-btn-close.gif') ?>',
+        imageBtnNext    : '<?php echo $this->getSkinUrl('images/lightbox-btn-next.gif') ?>',
+        imageBtnPrev    : '<?php echo $this->getSkinUrl('images/lightbox-btn-prev.gif') ?>',
+        imageBlank      : '<?php echo $this->getSkinUrl('images/lightbox-blank.gif') ?>',
+        fixedNavigation : true
+    });        
+    </script>   

@@ -1,0 +1,39 @@
+<?php
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ */
+?>
+<?php $tab = $this->getChildHtml('product_custom_tab') ?>
+<?php $tab2 = $this->getChildHtml('product_custom_tab2') ?>
+
+
+<div class="tabs ">
+    <?php 
+    $i = 0;
+    foreach ($this->getTabs() as $_index => $_tab): ?>
+        <?php if($this->getChildHtml($_tab['alias'])): ?>
+        	<a href="#tab" id="<?php echo $_tab['alias'] ?>" class="tab-title<?php if ($i == 0) echo ' opened';?>"><?php echo $_tab['title']?></a>
+        	
+			<?php if($this->getChildHtml($_tab['alias'])): ?>
+				<div class="tab-content" id="<?php echo $_tab['alias'] ?>_contents" <?php echo !$_index? ' style="display: block;"' : '' ?> ><?php echo $this->getChildHtml($_tab['alias']) ?></div>
+			<?php endif; ?>
+			<?php $i++; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+
+
+    <?php if ($tab): ?>
+        <?php $tabTitle = Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load('product_custom_tab')->getTitle(); ?>
+        <a href="#tab" class="tab-title" id="product_tabs_custom"><?php echo $tabTitle; ?></a>
+		<div class="tab-content" id="product_tabs_custom_contents"><?php echo $this->getChildHtml('product_custom_tab'); ?></div>
+	<?php endif; ?>  
+
+    <?php if ($tab2): ?>
+        <?php $tabTitle = Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load('product_custom_tab2')->getTitle(); ?>
+        <a href="#tab" class="tab-title" id="product_tabs_custom_second"><?php echo $tabTitle; ?></a>
+        <div class="tab-content" id="product_tabs_custom_second_contents"><?php echo $this->getChildHtml('product_custom_tab2'); ?></div>
+    <?php endif; ?>     
+ 
+ </div> 

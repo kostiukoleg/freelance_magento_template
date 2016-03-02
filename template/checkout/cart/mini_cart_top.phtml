@@ -1,0 +1,98 @@
+<?php if ($this->getIsNeedToDisplaySideBar()):?>
+<?php $_cartQty = $this->getSummaryCount(); ?>
+
+
+<a class="show-cart"> 
+
+	<div class="cart-quantity">
+		<?php
+		$count = $this->helper('checkout/cart')->getSummaryCount();
+		?>
+		<div class="tot"><?php echo $count; ?></div>
+		
+		<!--    <a href="<?php echo $this->getUrl('checkout/cart')?>"><?php echo $this->__('Shopping Cart')?></a>  -->
+
+        <!--<?php echo $this->__('Shopping Cart')?>-->
+		
+	</div>	
+ 
+	<div class="cart-price">
+
+			<div class="cart-total"
+				<?php if ($this->canApplyMsrp()): ?>
+					<div class="map-cart-sidebar-total"><?php echo $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></div>
+				<?php else: ?>
+					<?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
+					<?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
+						<?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?>
+					<?php endif; ?>
+				<?php endif; ?> 	
+			</div>	
+
+	</div>	
+
+	<div class="cart-btn">Vai al carrello</div>	  
+
+</a>		
+
+
+ 
+<div id="top-cart" class="top-cart">
+
+<?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+<?php endif ?>
+<?php $_items = $this->getRecentItems() ?>
+<?php if(count($_items)): ?>	 
+
+<html>
+	<body>
+
+		<div class="box">
+		
+            <div class="cart-popup" id="header-items">
+            <div class="overlay" style="display: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: .5; background-color: #fff;">
+            <div class="loading" style="position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; background-image: url(<?php echo $this->getSkinUrl('images/loading.gif')?>); background-position: center center;">&nbsp;</div>
+            </div>	
+			<div class="box-1">
+					<ol id="cart-sidebar" class="products-small">
+					<?php foreach($_items as $_item): ?>
+						<?php echo $this->getItemHtml($_item) ?>
+					<?php endforeach; ?>
+					</ol>
+			</div>
+
+			<div class="box-2">
+                <div class="summary">
+                    <?php echo $this->__('Total:') ?> 
+                    <?php if ($this->canApplyMsrp()): ?>
+                        <span class="map-cart-sidebar-total"><?php echo $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></span>
+                    <?php else: ?>
+                        <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
+                        <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
+                            <?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?>
+                        <?php endif; ?>
+                    <?php endif; ?> 
+                </div>                                                            
+                <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button big btn-checkout" onclick="window.location='<?php echo $this->getUrl('checkout/onepage')?>';"><span><span><?php echo $this->__('Checkout') ?></span></span></button>                                
+				<script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
+				</div>
+			</div>
+		</div>	
+		
+</body>
+</html>			
+			
+			
+			
+       
+        
+        
+    <?php else: ?>
+        <div id="header-items" class="cart-popup empty">
+            <p class="empty"><?php echo $this->__('You have no items in your shopping cart.') ?></p>
+        </div>
+    <?php endif ?>
+	
+    </div>
+<?php endif;?>
+</div>	

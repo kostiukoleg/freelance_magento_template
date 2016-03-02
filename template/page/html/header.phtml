@@ -1,0 +1,442 @@
+<?php $themeOptions = $this->helper('idstore') ?>
+<?php $headerType = $themeOptions->getHeaderType(); ?>
+
+<?php if ($themeOptions->useFixedHeader()): ?>
+<div class="fixed-header-area">
+	<div class="container fixed-header">
+		<div class="row">
+			<div class="span4">
+				<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+			</div>
+			<div class="show-menu">Category <span class="sig"></span></div>
+			<div class="span8">
+				<?php echo $this->getChildHtml('topMenu') ?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php endif ?>
+
+<div class="header-top header-variant<?php echo $headerType ?><?php if ($headerType == 1): ?> hidden-desktop<?php endif?>">
+	<div class="container">
+		<div class="row">
+            <div class="span5">
+                <div class="search_form">
+                    <?php echo $this->getChildHtml('topSearch') ?>
+                </div>	          
+	            <div id="header-links"><?php echo $this->getChildHtml('topLinks') ?></div>
+            </div>
+		</div>
+	</div>
+</div>
+<script>
+function addp(prodid){
+	var element="#adt"+prodid;
+	if( jQuery(element).is(':visible') ) {
+		var qty=jQuery(element).children(":first").text();
+		jQuery(element).children(":first").text(Number(qty)+1);
+	}
+	else {
+		jQuery(element).show();
+		jQuery(element).next().addClass('hover');
+		jQuery(element).find('.qty').text(1);
+	}
+	if ((totalCartInit == 0) || (totalCartInit == '')){
+		totalCartInit = 1;
+	} else {
+		totalCartInit = parseInt(totalCartInit) + 1;
+	}
+	jQuery('.tot').text(totalCartInit);
+	var cartTotal = parseFloat(("" + priceCartInit).replace(/,/g, '.').replace(/\s/g, '').replace(/€/g, ''));
+	var currentPrice = parseFloat(jQuery(element).closest('.product-grid').find('.product-information .price').text().replace(/,/g, '.').replace(/\s/g, '').replace(/€/g, ''));
+	var modifiedPrice = cartTotal + currentPrice;
+	modifiedPrice = '€ ' + modifiedPrice.toFixed(2);
+	priceCartInit = modifiedPrice.replace(/\./g, ',');
+	jQuery('.cart-total').text(priceCartInit);
+	
+	if(!jQuery('.top-cart .cart-popup').hasClass('empty')) {
+		jQuery('.top-cart .summary .price').text(modifiedPrice.replace(/\./g, ','));
+		var searchText = 'addp(' + prodid + ')';
+		jQuery('.top-cart li.item').each(function(){
+			if(jQuery(this).find('.addcontent').attr('onclick').indexOf(searchText) > -1) {
+				jQuery(this).find('.qtycontent').text(jQuery(element).find('>.qty').text());
+				jQuery(this).find('.item-info > strong').text(jQuery(element).find('>.qty').text() + ' x');
+			}
+		});
+	}
+}
+function remp(prodid){
+	var element="#adt"+prodid;
+	
+	if(jQuery(element).is(':visible')) {
+		var qty=jQuery(element).children(":first").text();
+		if(qty == 1){
+			jQuery(element).css('display','none');
+			jQuery(element).next().removeClass('hover');
+		}
+		else{
+			jQuery(element).children(":first").text(Number(qty)-1);
+		}
+	}
+	if((totalCartInit == 1) || (totalCartInit == 0)) {
+		totalCartInit = 0;
+	} else {
+		totalCartInit = parseInt(totalCartInit) - 1;
+	}
+	jQuery('.tot').text(totalCartInit);
+	
+	var cartTotal = parseFloat(("" + priceCartInit).replace(/,/g, '.').replace(/\s/g, '').replace(/€/g, ''));
+	var currentPrice = parseFloat(jQuery(element).closest('.product-grid').find('.product-information .price').text().replace(/,/g, '.').replace(/\s/g, '').replace(/€/g, ''));
+	var modifiedPrice = cartTotal - currentPrice;
+	if(modifiedPrice < 0) {
+		modifiedPrice = 0;
+	}
+	modifiedPrice = '€ ' + modifiedPrice.toFixed(2);
+	priceCartInit = modifiedPrice.replace(/\./g, ',');
+	jQuery('.cart-total').text(priceCartInit);
+	
+	if(!jQuery('.top-cart .cart-popup').hasClass('empty')) {
+		jQuery('.top-cart .summary .price').text(modifiedPrice.replace(/\./g, ','));
+		var searchText = 'addp(' + prodid + ')';
+		jQuery('.top-cart li.item').each(function(){
+			if(jQuery(this).find('.addcontent').attr('onclick').indexOf(searchText) > -1) {
+				jQuery(this).find('.qtycontent').text(jQuery(element).find('>.qty').text());
+				jQuery(this).find('.item-info > strong').text(jQuery(element).find('>.qty').text() + ' x');
+			}
+		});
+	}
+}
+function refresh(prodid){
+	var element="#adt"+prodid;
+	if(jQuery(element).is(':visible')) {
+		var qty=jQuery(element).children(":first").text();
+		jQuery(element).css('display','none');
+		jQuery(element).next().removeClass('hover');
+	}
+}
+var clicked = 0;
+function addrem(){
+	var newcontent = jQuery( "<div class='newcontent'> <div class='addcontent'></div><div class='qtycontent'></div><div class='removecontent'></div></div>" );
+	if (jQuery('#cart-sidebar .item').find('.newcontent').length) {
+	
+	}else{
+		if(clicked == 1)
+		{
+			jQuery(".cart-popup").css('display','block');
+			clicked = 0;
+		}
+		jQuery( "#cart-sidebar .item" ).prepend( newcontent );
+	}
+	jQuery( "#cart-sidebar .item" ).each(function() {
+		var qtycontent 		= 	jQuery(this).find('.qtycontent').eq(0);
+		var addcontent  	=   jQuery(this).find('.addcontent').eq(0);
+		var removecontent  	=   jQuery(this).find('.removecontent').eq(0);
+		var qty 			=	jQuery(this).find('.item-info strong').eq(0).text().replace (/[^\d.]/g,'');
+		var id 				=   jQuery(this).find('button').eq(0).attr("id").replace (/[^\d.]/g,'');
+		var element 		=  jQuery('#'+id);
+		var addUrl 			= element.attr('addurl');
+		var remurl 			= element.attr('remurl');
+		qtycontent.text(qty);
+		addcontent.attr('onclick',addUrl);
+		removecontent.attr('onclick',remurl);
+		
+	});
+/*	-- Elimino evento cart-popup --
+	jQuery(".cart-popup").mouseenter(function(){
+		clicked = 1;
+	});
+	jQuery(".cart-popup").mouseleave(function(){
+		jQuery(this).removeAttr('style');
+		clicked = 0;
+	});
+*/	
+	jQuery(".addcontent").click(function(){
+		clicked = 1;
+	});
+	jQuery(".removecontent").click(function(){
+		clicked = 1;
+	});
+} 
+
+//setInterval(function(){
+	//addrem();
+//}, 100);
+
+
+jQuery(document).ready(function() {	
+	totalCartInit = jQuery('.tot').text();
+	priceCartInit = jQuery('.cart-total').text();
+	addrem();
+/*
+    var hasBeenTrigged = false;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() >= 128 && !hasBeenTrigged) { // if scroll is greater/equal then 100 and hasBeenTrigged is set to false.
+            //alert("You've scrolled 100 pixels.");
+			jQuery('.side-menu-wrap').css('position','fixed');
+			jQuery( ".side-menu-wrap" ).addClass("fixed-already2");
+            hasBeenTrigged = true;
+        }
+		
+		if (jQuery(this).scrollTop() < 128 && hasBeenTrigged) { // if scroll is greater/equal then 100 and hasBeenTrigged is set to false.
+            //alert("You've scrolled 100 pixels.");
+			jQuery('.side-menu-wrap').css('position','absolute');
+			jQuery( ".side-menu-wrap" ).removeClass("fixed-already2");
+            hasBeenTrigged = false;
+        }
+    });
+*/	
+	jQuery("#cart-sidebar select").change(function(){
+	     var prodId1 = jQuery(this).attr('prodid');
+		if(jQuery(this).val() != "0")
+		{
+			var value1 = jQuery(this).val();
+			var data1 = { id: prodId1, value: value1 };
+			
+			jQuery.ajax({
+			  type: "POST",
+			  cache: false,
+			  url: "http://cabooza.com/updatesession.php",
+			  data: data1,
+			  success: function(d){
+			  
+			  },
+			  error: function (d){
+			  
+			  }
+			  
+			});
+			/* .done(function( msg ) {
+				jQuery('.search_text').text(msg);
+			}) */
+		}
+	});
+	jQuery( ".show-menu" ).click(function() {
+		
+		if ( jQuery( ".show-menu" ).hasClass( "opened" ) ) {
+			jQuery( ".show-menu" ).removeClass("opened");
+			jQuery('.side-menu-wrap').css('-webkit-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-moz-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-ms-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-o-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('transform','translateY(-200%)');
+		}else{
+			jQuery( ".show-menu" ).addClass("opened");
+			jQuery('.side-menu-wrap').css('-webkit-transform','translateY(0%)');
+			jQuery('.side-menu-wrap').css('-moz-transform','translateY(0%)');
+			jQuery('.side-menu-wrap').css('-ms-transform','translateY(0%)');
+			jQuery('.side-menu-wrap').css('-o-transform','translateY(0%)');
+			jQuery('.side-menu-wrap').css('transform','translateY(0%)');			
+		}
+	});
+
+
+<!-- Cabooza.com CB-4-PHTML -->
+
+	jQuery( "body" ).on('click touchend','.show-cart',function() {
+		if ( jQuery( ".show-cart" ).hasClass( "opened" ) ) {
+			 jQuery( ".show-cart" ).removeClass("opened");
+			 jQuery('.cart-popup').css('-webkit-transform','translateY(-200%)');
+			 jQuery('.cart-popup').css('-moz-transform','translateY(-200%)');
+			 jQuery('.cart-popup').css('-ms-transform','translateY(-200%)');
+			 jQuery('.cart-popup').css('-o-transform','translateY(-200%)');
+			 jQuery('.cart-popup').css('transform','translateY(-200%)');
+		}else{
+			 jQuery( ".show-cart" ).addClass("opened");
+			 jQuery('.cart-popup').css('-webkit-transform','translateY(0%)');
+			 jQuery('.cart-popup').css('-moz-transform','translateY(0%)');
+			 jQuery('.cart-popup').css('-ms-transform','translateY(0%)');
+			 jQuery('.cart-popup').css('-o-transform','translateY(0%)');
+			 jQuery('.cart-popup').css('transform','translateY(0%)');
+		}
+	});
+
+<!-- Cabooza.com Help -->
+
+	jQuery( ".help" ).click(function() {
+		if ( jQuery( ".show-help" ).hasClass( "opened" ) ) {
+			 jQuery( ".show-help" ).removeClass("opened");
+			 jQuery('.side-help').css('-webkit-transform','translateY(-200%)');
+			 jQuery('.side-help').css('-moz-transform','translateY(-200%)');
+			 jQuery('.side-help').css('-ms-transform','translateY(-200%)');
+			 jQuery('.side-help').css('-o-transform','translateY(-200%)');
+			 jQuery('.side-help').css('transform','translateY(-200%)');
+		}else{
+			 jQuery( ".show-help" ).addClass("opened");
+			 jQuery('.side-help').css('-webkit-transform','translateY(0%)');
+			 jQuery('.side-help').css('-moz-transform','translateY(0%)');
+			 jQuery('.side-help').css('-ms-transform','translateY(0%)');
+			 jQuery('.side-help').css('-o-transform','translateY(0%)');
+			 jQuery('.side-help').css('transform','translateY(0%)');
+
+		}
+	});
+	
+	<!-- Cabooza- gestione chiusura finestre aperte -->	
+	
+	recupero_id = '0';
+	jQuery("body").on('mouseenter','.show-menu',function() {recupero_id = '1';});
+	jQuery("body").on('mouseleave','.show-menu',function() {recupero_id = '0';});
+	jQuery("body").on('mouseenter','.side-menu-wrap',function() {recupero_id = '2'; });	
+	jQuery("body").on('mouseleave','.side-menu-wrap',function() {recupero_id = '0'; });		
+	jQuery("body").on('mouseenter','.show-cart',function() {recupero_id = '3';});
+	jQuery("body").on('mouseleave','.show-cart',function() {recupero_id = '0';});
+	jQuery("body").on('mouseenter','.cart-popup',function() {recupero_id = '4';});
+	jQuery("body").on('mouseleave','.cart-popup',function() {recupero_id = '0';});	
+	jQuery("body").on('mouseenter','.help',function() {recupero_id = '5';});
+	jQuery("body").on('mouseleave','.help',function() {recupero_id = '0';});
+	jQuery("body").on('mouseenter','.side-help',function() {recupero_id = '6';});
+	jQuery("body").on('mouseleave','.side-help',function() {recupero_id = '0';});	
+
+	/*document.onclick = function(event){alert(recupero_id);} ;*/
+	
+	document.onclick = function(event){ 
+	switch(recupero_id) {
+		case '0':
+			jQuery( ".show-cart" ).removeClass("opened");
+			jQuery('.cart-popup').css('-webkit-transform','translateY(-200%)');
+			jQuery('.cart-popup').css('-moz-transform','translateY(-200%)'); 
+			jQuery('.cart-popup').css('-ms-transform','translateY(-200%)'); 
+			jQuery('.cart-popup').css('-o-transform','translateY(-200%)');
+			jQuery('.cart-popup').css('transform','translateY(-200%)');
+			
+			jQuery( ".show-menu" ).removeClass("opened");
+			jQuery('.side-menu-wrap').css('-webkit-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-moz-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-ms-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-o-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('transform','translateY(-200%)');
+			
+			jQuery( ".show-help" ).removeClass("opened");
+			jQuery('.side-help').css('-webkit-transform','translateY(-200%)');
+			jQuery('.side-help').css('-moz-transform','translateY(-200%)');
+			jQuery('.side-help').css('-ms-transform','translateY(-200%)');
+			jQuery('.side-help').css('-o-transform','translateY(-200%)');
+			jQuery('.side-help').css('transform','translateY(-200%)');
+			
+			break;
+			
+		case '1':
+		case '2':		
+			jQuery( ".show-cart" ).removeClass("opened");
+			jQuery('.cart-popup').css('-webkit-transform','translateY(-200%)');
+			jQuery('.cart-popup').css('-moz-transform','translateY(-200%)'); 
+			jQuery('.cart-popup').css('-ms-transform','translateY(-200%)'); 
+			jQuery('.cart-popup').css('-o-transform','translateY(-200%)');
+			jQuery('.cart-popup').css('transform','translateY(-200%)');
+			
+			jQuery( ".show-help" ).removeClass("opened");
+			jQuery('.side-help').css('-webkit-transform','translateY(-200%)');
+			jQuery('.side-help').css('-moz-transform','translateY(-200%)');
+			jQuery('.side-help').css('-ms-transform','translateY(-200%)');
+			jQuery('.side-help').css('-o-transform','translateY(-200%)');
+			jQuery('.side-help').css('transform','translateY(-200%)');
+			break;
+
+		case '3':
+		case '4':
+			jQuery( ".show-menu" ).removeClass("opened");
+			jQuery('.side-menu-wrap').css('-webkit-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-moz-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-ms-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-o-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('transform','translateY(-200%)');
+			
+			jQuery( ".show-help" ).removeClass("opened");
+			jQuery('.side-help').css('-webkit-transform','translateY(-200%)');
+			jQuery('.side-help').css('-moz-transform','translateY(-200%)');
+			jQuery('.side-help').css('-ms-transform','translateY(-200%)');
+			jQuery('.side-help').css('-o-transform','translateY(-200%)');
+			jQuery('.side-help').css('transform','translateY(-200%)');
+			break;		
+			
+		case '5':
+		case '6':	
+			jQuery( ".show-cart" ).removeClass("opened");
+			jQuery('.cart-popup').css('-webkit-transform','translateY(-200%)');
+			jQuery('.cart-popup').css('-moz-transform','translateY(-200%)'); 
+			jQuery('.cart-popup').css('-ms-transform','translateY(-200%)'); 
+			jQuery('.cart-popup').css('-o-transform','translateY(-200%)');
+			jQuery('.cart-popup').css('transform','translateY(-200%)');
+			
+			jQuery( ".show-menu" ).removeClass("opened");
+			jQuery('.side-menu-wrap').css('-webkit-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-moz-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-ms-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('-o-transform','translateY(-200%)');
+			jQuery('.side-menu-wrap').css('transform','translateY(-200%)');
+			break;	
+			
+		default:
+			break;
+	} 
+	
+	
+	
+	} 
+						
+});
+</script>
+
+<?php
+$page_type = Mage::app()->getFrontController()->getRequest()->getRouteName();
+if($page_type=='cms'){ $page_type=str_replace('/','-_-',Mage::getSingleton('cms/page')->getIdentifier()); }
+// echo $page_type;
+//echo $headerType;
+?>
+
+
+<div class="header-container variant<?php echo $headerType ?>">
+	<div class="container">
+	    <div class="row header">
+					
+					<?php if ((!($page_type == "landing")) && (!($page_type == "checkout")) && (!($page_type == "customer"))): ?>
+						<a class="show-menu"><span> Categoria </span></a>
+					<?php endif?>		
+	
+					<div class="span3 visible-desktop">
+						<?php if ((!($page_type == "landing")) && (!($page_type == "checkout")) && (!($page_type == "customer"))): ?>
+								<div class="search_form"><?php echo $this->getChildHtml('topSearch') ?></div>
+						<?php endif?>					
+					</div>
+					
+					<div class="span5 logo-container">
+						<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+						<div class="currency-switcher"><?php //echo $this->getChildHtml('currency_switcher'); ?></div>
+					</div>
+					
+ <!-- nuovo menu-->
+					<div class="side-help">
+						<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('help_links')->toHtml() ?>							
+					</div> 			
+
+					<div class="help">
+						<a class="show-help">Aiuto</a>
+					</div>		
+					
+					
+					<?php if ((!($page_type == "landing")) && (!($page_type == "checkout")) && (!($page_type == "customer"))): ?>
+						<?php echo $this->getChildHtml('top_cart'); ?>
+					<?php endif?>		
+
+
+					
+					
+
+			<!-- queste righe sono da commentare  -->
+				
+	        <div><?php echo $this->getChildHtml('topContainer'); ?></div>
+			
+	    </div>
+	    <?php if ( ($headerType == 1) || ($headerType == 3) ): ?>
+	    <div class="row">
+	    	<div class="span12"><?php echo $this->getChildHtml('topMenu') ?></div>
+	    </div>
+	    <?php endif?>
+    </div>
+    <?php if ($headerType == 4): ?>
+	    <div class="row menu-wrapper">
+	    	<div class="span12"><?php echo $this->getChildHtml('topMenu') ?></div>
+	    </div>
+    <?php endif?>
+</div>
+<?php echo $this->getChildHtml('mobile_nav') ?>

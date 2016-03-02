@@ -1,0 +1,24 @@
+/* easy and fun to customize */
+div.header-container{
+	background: -moz-linear-gradient(#FFF, #e4e4e4);
+	background: -ms-linear-gradient(#FFF, #e4e4e4);
+	background: -o-linear-gradient(#FFF, #e4e4e4);
+	background: -webkit-linear-gradient(#FFF, #e4e4e4);
+	border-bottom: 5px solid #da6b2c;
+	height: 70px;
+}
+a.show-cart div.cart-btn{
+	background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/dt.png") no-repeat scroll right bottom;
+	border:none;
+	color: #DA6B2C;
+}
+div.help{
+   background: none;
+}
+a.show-help {
+     background: transparent url("http://cmmi.it/CaboozaSviluppoMag/SVIL/skin/frontend/idstore/default/images/list-menu.png") no-repeat scroll center 4px;
+}
+
+a.show-cart div.cart-quantity div.tot {
+	background-color: #be1e36;
+}

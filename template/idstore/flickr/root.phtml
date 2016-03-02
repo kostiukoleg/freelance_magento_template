@@ -1,0 +1,15 @@
+<?php
+$themeOptions = $this->helper('idstore');
+
+if ($themeOptions->useFlickr()): ?>
+    <span class="footer_title">Photo from Flickr</span>
+    <?php echo $this->getChildHtml('flickr_screen'); ?>
+<?php else :
+    $title = Mage::getModel('cms/block')
+    ->setStoreId(Mage::app()->getStore()->getId())
+    ->load('cms_flickr')
+    ->getTitle();
+?>
+    <span class="footer_title"><?php echo $title ?></span>
+    <?php echo $this->getChildHtml('cms_flickr'); ?>
+<?php endif ?>

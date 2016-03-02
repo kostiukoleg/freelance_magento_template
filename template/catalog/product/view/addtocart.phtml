@@ -1,0 +1,30 @@
+<?php $_product = $this->getProduct(); ?>
+<?php $buttonTitle = $this->__('Add to cart'); ?>
+<?php if($_product->isSaleable()): ?>
+    
+    <div class="add-to-cart">
+        <?php if(!$_product->isGrouped() && $_product->getTypeId() != 'bundle'): ?>
+        <div class="quanitybox">         
+            <label for="qty"><?php echo $this->__('Qty:') ?></label>
+            <div class="quantity-buttons">
+	            <input type="button" class="quantity_box_button_down" onclick="eightTheme.qtyDown('qty')" />         
+	            <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo ($this->getProductDefaultQty() > 0 ) ? $this->getProductDefaultQty() * 1 : 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+	            <input type="button" class="quantity_box_button_up" onclick="eightTheme.qtyUp('qty')" />
+            </div>
+        </div>
+        <script type="text/javascript">
+
+        var qty_el = document.getElementById('qty'); 
+        var qty = qty_el.value; 
+        if (qty < 1) {
+            jQuery('.quantity_box_button_down').css({
+                'opacity' : '0.2'
+            });
+        }
+        </script>
+        <?php endif; ?>
+        
+        <button type="submit" title="<?php echo $buttonTitle ?>" class="button btn-cart big active" ><span><span><?php echo $buttonTitle ?></span></span></button>
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+<?php endif; ?>
